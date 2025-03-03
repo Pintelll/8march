@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>8 Марта!</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(45deg, #ff99cc, #ff66a3);
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 50px;
+            animation: containerFloat 3s ease-in-out infinite alternate;
+        }
+
+        h1 {
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            font-size: 48px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: title 2s infinite alternate;
+        }
+
+        .photo-frame {
+            width: 300px;
+            height: 400px;
+            margin: 20px auto;
+            border: 5px solid #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            animation: photoScale 4s infinite alternate;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff3366;
+            font-size: 24px;
+            animation: float 4s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes title {
+            from { transform: translateY(-10px); }
+            to { transform: translateY(10px); }
+        }
+
+        @keyframes photoScale {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        @keyframes containerFloat {
+            0% { transform: translateY(-20px); }
+            100% { transform: translateY(20px); }
+        }
+
+        .message {
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            font-size: 24px;
+            margin-top: 20px;
+            animation: textBlink 2s infinite;
+        }
+
+        @keyframes textBlink {
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>С 8 Марта! 🌸</h1>
+        <div class="photo-frame">
+            <img src="https://example.com/photo1.jpg" alt="Праздничное фото">
+        </div>
+        <p class="message">Самой прекрасной девушке!</p>
+    </div>
+    <div class="hearts"></div>
+
+    <script>
+        // Автоматическое создание сердечек
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤';
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            document.querySelector('.hearts').appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        // Запуск анимации сердечек
+        setInterval(createHeart, 300);
+
+        // Автоматическая смена фотографий
+        const photos = [
+            'https://example.com/photo1.jpg',
+            'https://example.com/photo2.jpg',
+            'https://example.com/photo3.jpg'
+        ];
+        let currentPhoto = 0;
+        const photoFrame = document.querySelector('.photo-frame img');
+        
+        setInterval(() => {
+            currentPhoto = (currentPhoto + 1) % photos.length;
+            photoFrame.style.opacity = 0;
+            setTimeout(() => {
+                photoFrame.src = photos[currentPhoto];
+                photoFrame.style.opacity = 1;
+            }, 500);
+        }, 3000);
+    </script>
+</body>
+</html>
